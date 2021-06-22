@@ -1,0 +1,14 @@
+{
+  "name": "rodan.zoom.videodownloader",
+  "version": "1.0.0",
+  "description": "A simple electron app to download zoom videos",
+  "main": "index.js",
+  "scripts": {
+    "test": "electron ."
+  },
+  "author": "Rodan Ramdam",
+  "license": "ISC",
+  "devDependencies": {
+    "electron": "^13.1.3"
+  }
+}

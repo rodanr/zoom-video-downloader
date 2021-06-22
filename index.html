@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Zoom Video Downloader</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
+      crossorigin="anonymous"
+    />
+  </head>
+  <body class="container ps-2 pe-2 mb-3 bg-dark text-white">
+    <img
+      class="mx-auto d-block"
+      style="height: 25%; width: 25%"
+      src="src/zoom-logo.png"
+      alt="Zoom Logo"
+    />
+
+    <div class="display-3 font-weight-bold text-center">
+      Zoom Video Downloader
+    </div>
+    <span>
+      <input
+        class="form-control mt-5 fs-4"
+        type="text"
+        placeholder="Enter zoom video link"
+        id="url"
+      />
+      <input
+        class="form-control mt-5 fs-4"
+        type="password"
+        placeholder="password (if any)"
+        id="password"
+      />
+
+      <button class="btn btn-primary mt-5 fs-4" id="download">Download</button>
+      <p class="mt-2" id="output"></p>
+    </span>
+    <script>
+      const { ipcRenderer } = require("electron");
+      var downloadButton = document.getElementById("download");
+      var url = document.getElementById("url");
+      var password = document.getElementById("password");
+      var outputDisplay = document.getElementById("output");
+      downloadButton.addEventListener("click", () => {
+        if (password.value == "") {
+          ipcRenderer.send("data", {
+            url: url.value,
+            password: "",
+          });
+        } else {
+          ipcRenderer.send("data", {
+            url: url.value,
+            password: password.value,
+          });
+        }
+      });
+      ipcRenderer.on("output", (event, arg) => {
+        outputDisplay.innerText += arg;
+      });
+    </script>
+  </body>
+</html>
